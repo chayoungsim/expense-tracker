@@ -14,6 +14,13 @@
     "chrome-devtools": {
       "command": "npx",
       "args": ["-y", "chrome-devtools-mcp@latest"]
+    },
+    "render": {
+      "type": "sse",
+      "url": "https://mcp.render.com/mcp",
+      "headers": {
+        "Authorization": "rnd_6J5qd0FBgzW7GNwkISSqMcvZVrZc"
+      }
     }
   }
 }
