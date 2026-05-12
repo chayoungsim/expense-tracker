@@ -220,3 +220,10 @@ h1, h2, h3, h4 {
     color: color("text-third");
     opacity: 0.8;
 }
+
+.app-layout {
+    padding-bottom: 10rem;
+    h2{
+        padding: 5.6rem 1.6rem 1.6rem;
+    }    
+}
