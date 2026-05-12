@@ -63,7 +63,7 @@ function IncomeExpenseBarChart() {
                     <XAxis dataKey="date" />
                     {/* Y축: 금액 (만 단위로 축약) */}
                     <YAxis tickFormatter={formatYAxis} />
-                    <Tooltip formatter={(value: number) => `₩ ${value.toLocaleString('ko-KR')}`} />
+                    <Tooltip formatter={(value) => `₩ ${Number(value).toLocaleString('ko-KR')}`} />
                     <Legend />
                     {/* 수입 막대 (초록) */}
                     <Bar dataKey="income" name="수입" fill="#27ae60" radius={[4, 4, 0, 0]} />

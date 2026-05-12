@@ -53,7 +53,7 @@ export default function TrendLineChart() {
                     tick={{ fontSize: 11, fill: 'var(--text)' }}
                     tickFormatter={(v) => `${(v / 10000).toFixed(0)}만`}
                 />
-                <Tooltip formatter={(value: number) => [`₩ ${value.toLocaleString('ko-KR')}`, '지출']} />
+                <Tooltip formatter={(value) => [`₩ ${Number(value).toLocaleString('ko-KR')}`, '지출']} />
                 <Line
                     type="monotone"
                     dataKey="expense"
