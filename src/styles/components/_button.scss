@@ -1,0 +1,222 @@
+@use "../abstracts" as *;
+
+@mixin button-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    border: 2px solid color("btn-outline-border"); 
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s ease,
+        border-color     0.2s ease,
+        color            0.2s ease,
+        transform        0.1s ease,
+        opacity          0.2s ease;
+
+    @include button-size(0, 1.6rem, $font-size-sm, fluid(3, 4));
+    border-radius: $radius-sm;    
+}
+
+@mixin button-size($padding-y, $padding-x, $font-size, $height) {
+    padding: $padding-y $padding-x;
+    font-size: $font-size;
+    height: $height;   
+}
+
+@mixin button-variant($bg, $text, $bg-hover, $border: transparent) {
+  background-color: var(--color-#{$bg});
+  color: var(--color-#{$text});
+  @include dynamic-border($border);
+  &:hover {
+    background: color($bg-hover);
+    @include dynamic-border($bg-hover);
+  }
+}
+
+@mixin dynamic-border($border-val) {
+  @if $border-val == transparent {
+    border: 2px solid transparent;
+  } @else {
+    border: 2px solid var(--color-#{$border-val});
+  }
+}
+
+.btn {
+    &-primary {
+        @include button-base;
+        @include button-variant(
+            "btn-primary-bg",
+            "btn-primary-text",
+            "btn-primary-bg-hover",
+            "btn-primary-bg"
+        );  
+        &:hover:not(:disabled), &:focus-visible:not(:disabled) {            
+            color: color("white");
+        }  
+    }    
+    &-outline {
+        @include button-base;
+        background-color: transparent;
+        color: color("btn-outline-text");   
+        border: 2px solid color("btn-outline-border");    
+        background-image: linear-gradient(to left, transparent 50%, color("btn-outline-border") 50%);
+        background-size: 200% 100%;
+        background-position: right bottom;
+        transition: all 0.4s ease;  
+        &:hover:not(:disabled), &:focus-visible:not(:disabled) {
+            background-position: left bottom;
+            color: #fff;
+        } 
+    }
+    &-secondary {
+        @include button-base;
+        @include button-variant(
+            "btn-secondary-bg",
+            "btn-secondary-text",
+            "btn-secondary-bg-hover",
+            "btn-secondary-bg"
+        );         
+    }
+    &-danger {
+        @include button-base;
+        @include button-variant(
+            "btn-danger-bg",
+            "btn-danger-text",
+            "btn-danger-bg-hover"
+        );
+    }
+    &-filter {
+        @include button-base;
+        @include button-variant(
+            "btn-filter-bg",
+            "btn-filter-text",
+            "btn-filter-bg-hover"
+        );
+        border: 3px solid rgba(0, 0, 0, 0.04);
+        &:hover:not(:disabled), &:focus-visible:not(:disabled) {
+            border: 3px solid color("btn-filter-bg-hover");
+        }
+    }
+
+    &-disabled{
+        @include button-base;
+        background-color: color("btn-disabled-bg");
+        color: color("btn-disabled-text");
+        border: 2px solid transparent;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+    &-link {
+        @include button-base;        
+        background-color: transparent;
+        color: color("btn-outline-text");   
+        border: 2px solid color("btn-outline-border");    
+        background-image: linear-gradient(to left, transparent 50%, color("btn-outline-border") 50%);
+        background-size: 200% 100%;
+        background-position: right bottom;
+        transition: all 0.4s ease;  
+        &:hover:not(:disabled), &:focus-visible:not(:disabled) {
+            background-position: left bottom;
+            color: #fff;
+            svg {
+                stroke: color("surface");
+            }
+        } 
+        svg {
+            stroke: color("primary");
+        }
+    }
+    &-sns {
+        width: 5rem;
+        height: 5rem;
+        border-radius: $radius-circle;
+        background: color("bg-subtle");
+        svg path{
+            fill: color("text-muted");
+            transition: fill 0.2s ease;
+        }
+        &:hover {
+            svg path{
+                fill: color("text");
+            }
+        }
+    }
+    &-cs {        
+        width: 6rem;
+        height: 6rem;   
+        border-radius: $radius-circle;        
+        background: color("grd");
+        svg {
+            //animation: csFloat 3s ease-in-out infinite;
+            transform-box: fill-box;
+            transform-origin: center;
+        }
+
+        // 눈: 시선 이동 + 깜빡임
+        .eye {
+            animation: csEyeLook 5s ease-in-out infinite;
+            transform-box: fill-box;
+            transform-origin: center;
+        }
+
+        @keyframes csFloat {
+            0%, 100% { transform: translateY(0);    }
+            50%      { transform: translateY(-4px); }
+        }
+
+        @keyframes csEyeLook {
+            0%,  8%  { transform: translateX(0)    scaleY(1);   } // 정면
+            18%, 38% { transform: translateX(-2px) scaleY(1);   } // 왼쪽 시선
+            45%      { transform: translateX(0)    scaleY(0.1); } // 깜빡
+            50%      { transform: translateX(0)    scaleY(1);   } // 정면 복귀
+            60%, 78% { transform: translateX(2px)  scaleY(1);   } // 오른쪽 시선
+            85%      { transform: translateX(0)    scaleY(0.1); } // 깜빡
+            92%,100% { transform: translateX(0)    scaleY(1);   } // 정면 복귀
+        }
+    }
+    &-more {
+        @include flex-c;
+        width: 6rem;
+        height: 6rem;
+        border-radius: $radius-circle;
+        border:1px solid color("border-dark");
+        &::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: $radius-circle;
+            background: url(../assets/images/ico-arrow.svg) no-repeat 50% 50%
+        }
+        &:hover {
+            background:color("grd");
+            border:0;
+
+            &::after {
+                filter: brightness(0) invert(1);
+            }
+        }
+    }    
+    &-sm {
+        @include button-size(0, 0.85rem, $font-size-xs, fluid(2, 2.4));
+        border: 1px solid 
+    }
+    &-md {
+        @include button-size(0, 1.6rem, $font-size-sm, fluid(3, 4));
+    }
+    &-lg {
+        @include button-size(0, 2rem, $font-size-md, fluid(4, 5));
+    }
+}
+
+.btn-plus {
+    width: 8rem;
+    height: 8rem;
+    border-radius: $radius-circle;
+    background: color("grd");  
+    @include flex-c;     
+}

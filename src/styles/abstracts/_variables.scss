@@ -1,0 +1,44 @@
+@use "sass:color";
+
+$primary : #009A93;
+$primary-dark :color.adjust($primary, $lightness: -10%);
+$primary-light : color.adjust($primary, $lightness: 10%);
+$secondary : #58d68d;
+$secondary-dark : color.adjust($secondary, $lightness: -10%);
+$danger : #ec7063;
+$danger-dark : color.adjust($danger, $lightness: -10%);
+$warning : #f8c471;
+$bg-subtle : #f5f7fa;
+$surface : #ffffff;
+$surface-raised : #f8f8f8;
+$text : #222222;
+$text-muted : #7f8c8d;
+$text-third : #999999;
+$border : #d9d9d9;
+$border-dark : #999999;
+$disabled : #bdc3c7;
+$white :#ffffff;
+$black : #000000;
+$link : #3498db;
+$link-hover : #2176ae;
+$link-bright : #5dade2;
+$grd : linear-gradient(108deg, #0072C6 0%, #009A93 100%);
+$overlay : rgba(0, 0, 0, 0.4);
+$bg-overlay : rgba(255, 255, 255, 0.92);
+// Border Radius Scale (preview.html 기준)
+$radius-xs:     0.6rem;   //  5px — Buttons, Cards,
+$radius-sm:     0.8rem;   //  8px — Forms
+$radius-md:     1.1rem;   // 11px — Search 입력창
+$radius-lg:     1.2rem;   // 12px — Features, 드롭다운 패널
+$radius-xl:     2rem;     // 20px — 이미지 박스
+$radius-2xl:    5rem;     // 50px — 스크롤 인디케이터, 둥근 검색
+$radius-3xl:    8rem;     // 80px — 이미지 박스 hover
+$radius-circle: 50%;      // 완전 원형
+
+
+
+
+
+
+
+

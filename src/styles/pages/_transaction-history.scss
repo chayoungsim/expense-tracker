@@ -1,0 +1,196 @@
+@use "../abstracts" as *;
+
+.tx-history {
+    @include flex-col;
+    min-height: 100%;
+    background: color("bg-subtle");
+}
+
+// ── 헤더 ─────────────────────────────────────────────────────────────────────
+.tx-history__header {
+    padding: 5.6rem 1.6rem 1.6rem;
+    background: color("surface");
+    border-bottom: 1px solid color("border");
+
+    @include respond(sm) {
+        padding: 5.6rem 2rem 1.6rem;
+    }
+}
+
+.tx-history__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: color("text");
+    letter-spacing: $tracking-tight;
+}
+
+// ── 검색 + 필터 툴바 ──────────────────────────────────────────────────────────
+.tx-history__toolbar {
+    @include flex-col(1.2rem);
+    padding: 1.6rem;
+    background: color("surface");
+    border-bottom: 1px solid color("border");
+
+    @include respond(sm) {
+        padding: 1.6rem 2rem;
+    }
+}
+
+.tx-history__search {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.tx-history__search-icon {
+    position: absolute;
+    left: 1.2rem;
+    color: color("text-muted");
+    pointer-events: none;
+}
+
+.tx-history__search-input {
+    width: 100%;
+    padding: 1rem 1.2rem 1rem 3.8rem;
+    border: 1px solid color("border");
+    border-radius: $radius-2xl;
+    background: color("bg-subtle");
+    font-size: $font-size-sm;
+    color: color("text");
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &::placeholder {
+        color: color("text-muted");
+    }
+
+    &:focus {
+        border-color: color("primary");
+        box-shadow: 0 0 0 3px rgba(0, 154, 147, 0.12);
+    }
+
+    // 기본 search 입력 X 버튼 숨기기
+    &::-webkit-search-cancel-button {
+        -webkit-appearance: none;
+    }
+}
+
+// ── 필터 칩 영역 ──────────────────────────────────────────────────────────────
+.tx-history__filters {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.tx-history__filter-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.4rem;
+    height: 3.4rem;
+    border: 1px solid color("border");
+    border-radius: $radius-md;
+    background: color("surface");
+    color: color("text-muted");
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: border-color 0.15s, color 0.15s;
+
+    &:hover {
+        border-color: color("primary");
+        color: color("primary");
+    }
+
+    @include focus-ring(color("primary"));
+}
+
+.tx-history__chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 1.4rem;
+    border: 1px solid color("border");
+    border-radius: $radius-2xl;
+    background: color("surface");
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: color("text-muted");
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+
+    &:hover:not(.tx-history__chip--active) {
+        border-color: color("primary");
+        color: color("primary");
+    }
+
+    &--active {
+        background: color("primary");
+        border-color: color("primary");
+        color: #fff;
+    }
+
+    @include focus-ring(color("primary"));
+}
+
+// ── 거래 목록 본문 ────────────────────────────────────────────────────────────
+.tx-history__body {
+    @include flex-col;
+    flex: 1;
+    padding: 1.6rem;
+    gap: 2rem;
+    padding-bottom: 10rem; // 하단 네비게이션 여백
+
+    @include respond(sm) {
+        padding: 2rem 2rem 10rem;
+    }
+}
+
+// ── 날짜 그룹 ─────────────────────────────────────────────────────────────────
+.tx-history__group {
+    @include flex-col(1.2rem);
+}
+
+.tx-history__group-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.tx-history__group-label {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    color: color("text-muted");
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.tx-history__group-divider {
+    flex: 1;
+    height: 1px;
+    background: color("border");
+}
+
+.tx-history__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: color("surface");
+    border-radius: $radius-lg;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+// ── 빈 상태 ───────────────────────────────────────────────────────────────────
+.tx-history__empty {
+    @include flex-c;
+    flex: 1;
+    padding: 6rem 2rem;
+    text-align: center;
+
+    p {
+        font-size: $font-size-sm;
+        color: color("text-muted");
+    }
+}

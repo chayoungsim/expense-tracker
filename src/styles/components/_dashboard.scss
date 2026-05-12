@@ -1,0 +1,479 @@
+@use "../abstracts" as *;
+
+// ── 스크린 리더 전용 유틸 ─────────────────────────────────────────────────────
+.sr-only {
+    @include ir;
+}
+
+// ── 대시보드 루트 ─────────────────────────────────────────────────────────────
+.dashboard {
+    @include flex-col;
+    min-height: 100vh;
+    background: color("bg-subtle");
+}
+
+// ── 히어로 헤더 ──────────────────────────────────────────────────────────────
+.dashboard__hero {
+    position: relative;
+    overflow: hidden;
+    background: #d3f1ff;
+    padding-bottom: 3.2rem;
+
+    // 장식용 Blob (Figma 그라디언트 배경 재현)
+    .blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: 0.5;
+        pointer-events: none;
+    }
+    .blob--1 {
+        width: 28rem;
+        height: 28rem;
+        background: #7fd9ff;
+        top: -8rem;
+        left: -6rem;
+    }
+    .blob--2 {
+        width: 20rem;
+        height: 20rem;
+        background: #b3eaff;
+        top: 4rem;
+        right: -4rem;
+    }
+    .blob--3 {
+        width: 14rem;
+        height: 14rem;
+        background: #e0f7ff;
+        bottom: -4rem;
+        left: 30%;
+    }
+}
+
+.dashboard__hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 5.6rem 2rem 0;
+
+    @include respond(lg) {
+        padding: 6.4rem 3.2rem 0;
+    }
+}
+
+// 상단 행 (인사말 + 버튼)
+.dashboard__hero__top {
+    @include flex-sb;
+    margin-bottom: 3.2rem;
+}
+
+.dashboard__hero__user {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+// 아바타 원형
+.dashboard__avatar {
+    width: 4.4rem;
+    height: 4.4rem;
+    border-radius: 50%;
+    @include flex-c;
+    background: linear-gradient(135deg, #0072C6, #009A93);
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    user-select: none;
+}
+
+.dashboard__hero__greeting {
+    @include flex-col;
+}
+
+.dashboard__hero__name {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    color: #101323;
+    line-height: 1.3;
+}
+
+.dashboard__hero__sub {
+    font-size: $font-size-sm;
+    color: #3e4784;
+    line-height: 1.5;
+}
+
+// 아이콘 버튼 묶음
+.dashboard__hero__actions {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.dashboard__icon-btn {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    @include flex-c;
+    position: relative;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    cursor: pointer;
+    color: #363f72;
+    transition: background 0.2s ease, transform 0.15s ease;
+    backdrop-filter: blur(8px);
+
+    &:hover,
+    &:focus-visible {
+        background: rgba(255, 255, 255, 0.9);
+        transform: translateY(-1px);
+    }
+
+    @include focus-ring(#009A93);
+}
+
+// 알림 점
+.dashboard__notif-dot {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: #ec7063;
+    border: 2px solid #d3f1ff;
+}
+
+// 잔액 영역
+.dashboard__balance {
+    @include flex-col(0.6rem);
+}
+
+.dashboard__balance__label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: $font-size-sm;
+    color: #363f72;
+    font-weight: $font-weight-medium;
+
+    button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #363f72;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        @include focus-ring(#009A93);
+    }
+}
+
+.dashboard__balance__amount {
+    font-size: clamp(2.8rem, 5vw, 4rem);
+    font-weight: $font-weight-bold;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #101323 0%, #363f72 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    transition: opacity 0.2s ease;
+}
+
+// ── 본문 (하단 네비게이션 높이만큼 padding-bottom 확보) ────────────────────────
+.dashboard__body {
+    @include flex-col(2.4rem);
+    max-width: 72rem;
+    margin: 0 auto;
+    width: 100%;
+    padding: 2.4rem 1.6rem 11rem;
+
+    @include respond(sm) {
+        padding: 2.4rem 2rem 11rem;
+    }
+
+    @include respond(lg) {
+        padding: 3.2rem 3.2rem 11rem;
+    }
+}
+
+// ── 수입/지출 요약 카드 ───────────────────────────────────────────────────────
+.dashboard__recap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem;
+}
+
+.dashboard__recap__card {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    background: color("surface");
+    border-radius: $radius-lg;
+    padding: 1rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+
+    &--income .dashboard__recap__icon {
+        background: rgba(88, 214, 141, 0.15);
+        color: #27ae60;
+    }
+
+    &--expense .dashboard__recap__icon {
+        background: rgba(236, 112, 99, 0.15);
+        color: #e74c3c;
+    }
+
+    @include respond(sm) {
+        padding: 2rem;
+    }
+}
+
+.dashboard__recap__icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    @include flex-c;
+    flex-shrink: 0;
+}
+
+.dashboard__recap__info {
+    @include flex-col(0.2rem);
+    min-width: 0;
+}
+
+.dashboard__recap__label {
+    font-size: $font-size-xs;
+    color: color("text-muted");
+    white-space: nowrap;
+}
+
+.dashboard__recap__amount {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: color("text");
+    @include ellipsis;
+
+    @include respond(md) {
+        font-size: $font-size-md;
+    }
+}
+
+// ── 섹션 공통 ─────────────────────────────────────────────────────────────────
+.dashboard__section {
+    @include flex-col(1.6rem);
+}
+
+.dashboard__section__header {
+    @include flex-sb;
+}
+
+.dashboard__section__title {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    color: color("text");
+    letter-spacing: $tracking-tight;
+}
+
+.dashboard__section__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: $font-size-xs;
+    color: color("primary");
+    font-weight: $font-weight-medium;
+    transition: opacity 0.2s;
+
+    &:hover {
+        opacity: 0.75;
+    }
+
+    @include focus-ring(color("primary"));
+}
+
+// ── 카드 목록 ─────────────────────────────────────────────────────────────────
+.dashboard__card-list {
+    display: flex;
+    gap: 1.6rem;
+    overflow-x: auto;
+    padding-bottom: 0.8rem;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.dashboard__card {
+    flex-shrink: 0;
+    border-radius: $radius-xl;
+    padding: 2.4rem;
+
+    &--main {
+        @include flex-col(1.6rem);
+        width: 28rem;
+        min-height: 16rem;
+        background: linear-gradient(135deg, #0072C6 0%, #009A93 100%);
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            width: 16rem;
+            height: 16rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            top: -5rem;
+            right: -5rem;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 10rem;
+            height: 10rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            bottom: -3rem;
+            left: 5rem;
+        }
+    }
+
+    &--add {
+        @include flex-col-c;
+        gap: 0.8rem;
+        width: 14rem;
+        min-height: 16rem;
+        border: 2px dashed color("border");
+        background: color("surface");
+        cursor: pointer;
+        color: color("text-muted");
+        font-size: $font-size-sm;
+        transition: border-color 0.2s, color 0.2s;
+
+        &:hover {
+            border-color: color("primary");
+            color: color("primary");
+        }
+
+        @include focus-ring(color("primary"));
+    }
+}
+
+.dashboard__card__top {
+    @include flex-sb;
+    position: relative;
+    z-index: 1;
+}
+
+.dashboard__card__type {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    letter-spacing: 0.05em;
+}
+
+.dashboard__card__number {
+    font-size: $font-size-md;
+    letter-spacing: 0.1em;
+    position: relative;
+    z-index: 1;
+}
+
+.dashboard__card__bottom {
+    @include flex-sb;
+    position: relative;
+    z-index: 1;
+}
+
+.dashboard__card__meta-label {
+    display: block;
+    font-size: 1rem;
+    opacity: 0.7;
+    margin-bottom: 0.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.dashboard__card__meta-value {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+}
+
+// ── 예정 결제 목록 ────────────────────────────────────────────────────────────
+.dashboard__payment-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: color("surface");
+    border-radius: $radius-lg;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.dashboard__payment-item {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.4rem 1.6rem;
+
+    & + & {
+        border-top: 1px solid color("border");
+    }
+
+    @include respond(md) {
+        padding: 1.6rem 2rem;
+    }
+}
+
+.dashboard__payment-item__icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    @include flex-c;
+    flex-shrink: 0;
+    font-size: 1.6rem;
+    font-weight: $font-weight-bold;
+}
+
+.dashboard__payment-item__info {
+    @include flex-col(0.2rem);
+    flex: 1;
+    min-width: 0;
+}
+
+.dashboard__payment-item__name {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: color("text");
+}
+
+.dashboard__payment-item__meta {
+    font-size: $font-size-xs;
+    color: color("text-muted");
+}
+
+.dashboard__payment-item__amount {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: color("danger");
+    flex-shrink: 0;
+}
+
+// ── 최근 거래 목록 (아이템은 TransactionItem 컴포넌트 + tx-item 클래스 사용) ───
+.dashboard__tx-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: color("surface");
+    border-radius: $radius-lg;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}

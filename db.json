@@ -1,0 +1,36 @@
+{
+    "transactions": [
+        { "id": 1,  "name": "월급-1월",                "category": "급여",     "date": "2025-05-08T09:00:00", "amount": 3200000, "type": "income" },
+        { "id": 2,  "name": "월세",                    "category": "주거",     "date": "2025-05-08T10:30:00", "amount": 650000,  "type": "expense" },
+        { "id": 3,  "name": "마트 장보기",              "category": "식비",     "date": "2025-05-08T14:20:00", "amount": 87500,   "type": "expense" },
+        { "id": 4,  "name": "헬스장 회원권",            "category": "건강",     "date": "2025-05-07T09:00:00", "amount": 60000,   "type": "expense" },
+        { "id": 5,  "name": "프리랜서 디자인 프로젝트",  "category": "부수입",   "date": "2025-05-07T16:00:00", "amount": 450000,  "type": "income" },
+        { "id": 6,  "name": "카페라떼",                "category": "식비",     "date": "2025-05-07T08:30:00", "amount": 6500,    "type": "expense" },
+        { "id": 7,  "name": "카풀",                    "category": "교통",     "date": "2025-05-07T07:50:00", "amount": 12000,   "type": "expense" },
+        { "id": 8,  "name": "Spotify",                "category": "구독",     "date": "2025-05-06T00:00:00", "amount": 10900,   "type": "expense" },
+        { "id": 9,  "name": "YouTube Premium",        "category": "구독",     "date": "2025-05-06T00:00:00", "amount": 13900,   "type": "expense" },
+        { "id": 10, "name": "배당금 입금",              "category": "투자",     "date": "2025-05-06T11:00:00", "amount": 38000,   "type": "income" },
+        { "id": 11, "name": "점심",                    "category": "식비",     "date": "2025-05-05T12:30:00", "amount": 9000,    "type": "expense" },
+        { "id": 12, "name": "지하철",                   "category": "교통",     "date": "2025-05-05T08:10:00", "amount": 1400,    "type": "expense" },
+        { "id": 13, "name": "PayPal 이체",             "category": "이체",     "date": "2025-05-08T14:30:00", "amount": 125000,  "type": "income" },
+        { "id": 14, "name": "Notion",                 "category": "업무 도구", "date": "2025-05-06T16:00:00", "amount": 16000,   "type": "expense" }
+    ],
+    "categories": [
+        { "id": 1, "name": "급여",     "type": "income" },
+        { "id": 2, "name": "부수입",   "type": "income" },
+        { "id": 3, "name": "투자",     "type": "income" },
+        { "id": 4, "name": "이체",     "type": "income" },
+        { "id": 5, "name": "식비",     "type": "expense" },
+        { "id": 6, "name": "교통",     "type": "expense" },
+        { "id": 7, "name": "주거",     "type": "expense" },
+        { "id": 8, "name": "건강",     "type": "expense" },
+        { "id": 9, "name": "구독",     "type": "expense" },
+        { "id": 10, "name": "업무 도구", "type": "expense" }
+    ],
+    "user": {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john@example.com",
+        "balance": 12458500
+    }
+}

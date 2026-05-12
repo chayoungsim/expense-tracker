@@ -1,0 +1,58 @@
+@use "../abstracts" as *;
+
+.tx-item {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.4rem 1.6rem;
+    transition: background 0.15s ease;
+
+    &:hover {
+        background: color("bg-subtle");
+    }
+
+    & + & {
+        border-top: 1px solid color("border");
+    }
+
+    @include respond(md) {
+        padding: 1.6rem 2rem;
+    }
+}
+
+.tx-item__info {
+    @include flex-col(0.2rem);
+    flex: 1;
+    min-width: 0;
+}
+
+.tx-item__name {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: color("text");
+    @include ellipsis;
+}
+
+.tx-item__meta {
+    font-size: $font-size-xs;
+    color: color("text-muted");
+}
+
+.tx-item__trailing {
+    @include flex-col(0.2rem);
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+
+.tx-item__amount {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+
+    &--income { color: #27ae60; }
+    &--expense { color: #e74c3c; }
+}
+
+.tx-item__type-label {
+    font-size: $font-size-xs;
+    color: color("text-third");
+}

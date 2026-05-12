@@ -1,0 +1,69 @@
+@use "../abstracts" as *;
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+  gap: 8rem;
+}
+.card { 
+  &__thumb {
+    border-radius: $radius-xl;
+    overflow: hidden;
+    position: relative;
+    transition: border-radius 0.2s ease;
+    .hover {
+        @include abs-center;
+        width: 100%;
+        height: 100%;
+        background: color("overlay");
+        opacity: 0;
+        transition: opacity 0.2s ease;
+          
+    }
+    .btn-plus {
+        @include abs-center;
+    }
+  }
+  &__desc {    
+    .title {
+        font-size: $font-heading-md;
+        span {
+            @include text-underline-grow;
+            line-height: 1.25;
+        }
+    }
+    .date {
+        font-size: $font-size-sm;
+        margin-top: 1rem;        
+        span {
+            color: color("text-third");
+            @include text-underline-grow(color("text-third"), 1px);
+        }
+    }
+  }
+  &__link {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    &:hover {
+        .card__thumb {
+            border-radius: $radius-3xl;
+        }
+        .hover {
+            opacity: 1;
+        }
+        .title {
+            span  {
+                @include text-underline-grow-active;
+            }
+        }
+        .date {
+            span {
+                @include text-underline-grow-active;
+            }
+        }
+            
+    }  
+  }
+}
+

@@ -1,0 +1,222 @@
+@use "../abstracts" as *;
+html {
+  font-size: 56%;
+  @include custom-scrollbar();
+  @include respond(sm) {
+    font-size: 62.5%;
+  }
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  @include viewport-height(100);
+}
+
+body {
+    font-family: $font-family-base;
+    font-size: $font-size-sm;
+    line-height: $line-height-body;
+    background-color: color("surface");
+    color: color("text");
+    transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.static {
+    max-width: 136rem;
+    margin: 0 auto;
+    padding: 0 1.6rem;
+    @include respond("lg") {
+        padding: 0 2rem;
+    }
+    @include respond("2xl") {
+        padding: 0;
+    }
+}
+
+.video__frame {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
+}
+.img__frame {
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+h1, h2, h3, h4 {
+    font-weight: $font-weight-bold;
+    line-height: $line-height-heading;
+    letter-spacing: $tracking-tight;
+}
+
+.sub-header {
+    height: 40rem;
+    background: color("text-muted");
+    padding-top: 10rem;
+    .static {
+        @include flex-col-c;
+        height: 100%;
+    }
+    h2 {
+        font-size: $font-size-2xl;
+        color: color("surface");
+        @include respond(lg) {
+            font-size: $font-size-3xl;
+        }
+    }
+    p {
+        font-size: $font-size-lg;
+        color: color("surface");
+        margin-top: 1.2rem;
+        @include respond(lg) {
+            font-size: $font-size-xl;
+        }
+    }
+    .lineParent {
+        overflow: hidden;
+    }
+}
+
+
+
+
+/*color*/
+.primary{
+    background:color("primary")
+}
+.primary-dark{
+    background:color("primary-dark")
+}
+.danger{
+    background:color("danger")
+}
+.warning{
+    background:color("warning")
+}
+.secondary{
+    background:color("secondary")
+}
+.bg {
+    background:color("surface")
+}
+.text {
+    background: color("text");
+}
+.text-muted {
+    background: color("text-muted");
+}
+.text-third {
+    background: color("text-third");
+}
+.surface {
+    background: color("surface");
+}
+.surface-raised {
+    background: color("surface-raised");
+}
+.border {
+    background: color("border");
+}
+.link {
+    background: color("link");
+}
+.link-hover {
+    background: color("link-hover");
+}
+.link-bright {
+    background: color("link-bright");
+}
+.bg-subtle {
+    background: color("bg-subtle");
+}
+.warning{
+    background:color("warning")
+}
+.bg-overlay {
+    background: color("bg-overlay");
+}
+.overlay {
+    background: color("overlay");
+}
+
+/*title*/
+.ts-hero {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  line-height:1.07;
+  letter-spacing: -0.28px;
+  @include respond(lg) {
+    //font-size: $font-size-4xl;
+  }
+}
+
+.section-heading {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  line-height: 1.30;
+  letter-spacing: -0.28px;
+  @include respond(lg) {
+    font-size: $font-size-3xl;
+  }
+}
+
+.tile-heading {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  margin-bottom: 1.2rem;
+  @include respond(lg) {
+    font-size: $font-size-2xl;
+  }
+}   
+
+.card-title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-body;
+  margin-bottom: 0.8rem;
+  @include respond(lg) {
+    font-size: $font-size-xl;
+  }
+}
+
+.card-title-regular {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-regular;
+  margin-bottom: 0.8rem;
+  @include respond(lg) {
+    font-size: $font-size-xl;
+  }
+}
+
+.ts-link,
+.ts-caption {
+    font-size: $font-size-sm;
+    color: color("text-muted");
+}
+
+.ts-micro {
+    font-size: $font-size-xs;
+    color: color("text-third");
+}
+.ts-nano {
+    font-size: $font-size-xs;
+    color: color("text-third");
+    opacity: 0.8;
+}

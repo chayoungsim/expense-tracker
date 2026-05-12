@@ -1,0 +1,271 @@
+// ─────────────────────────────────────────────
+// 접근성
+// ─────────────────────────────────────────────
+
+@mixin ir {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 텍스트 말줄임 (N줄)
+@mixin ellipsis-multi($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// ─────────────────────────────────────────────
+// 테마
+// ─────────────────────────────────────────────
+
+// 테마별 CSS 변수를 생성하는 믹스인
+@mixin generate-theme-variables($theme-map) {
+    @each $name, $value in $theme-map {
+        --color-#{$name}: #{$value};
+    }
+}
+
+// ─────────────────────────────────────────────
+// Flexbox
+// ─────────────────────────────────────────────
+
+// 가로·세로 중앙 정렬
+@mixin flex-c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// 양끝 정렬 + 세로 중앙
+@mixin flex-sb {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// 세로 방향 중앙 정렬
+@mixin flex-col-c {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+// 세로 방향 + 가로 시작 정렬
+@mixin flex-col($gap: null) {
+  display: flex;
+  flex-direction: column;
+  @if $gap { gap: $gap; }
+}
+
+// ─────────────────────────────────────────────
+// Grid
+// ─────────────────────────────────────────────
+
+// 반응형 자동 컬럼 그리드
+// 사용: @include auto-grid(28rem, 2.4rem)
+@mixin auto-grid($min-col: 24rem, $gap: 2.4rem) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($min-col, 1fr));
+  gap: $gap;
+}
+
+// 고정 컬럼 그리드
+// 사용: @include grid(3, 2.4rem)
+@mixin grid($cols: 3, $gap: 2.4rem) {
+  display: grid;
+  grid-template-columns: repeat($cols, 1fr);
+  gap: $gap;
+}
+
+// ─────────────────────────────────────────────
+// 포지션
+// ─────────────────────────────────────────────
+
+// 절대 위치 중앙 정렬 (부모 relative 필요)
+@mixin abs-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// 절대 위치로 전체 채우기
+@mixin abs-fill {
+  position: absolute;
+  inset: 0;
+}
+
+// ─────────────────────────────────────────────
+// 비율 & 크기
+// ─────────────────────────────────────────────
+
+// 비율 유지 박스 (16:9 기본)
+// 사용: @include aspect-ratio(16, 9)
+@mixin aspect-ratio($w: 16, $h: 9) {
+  aspect-ratio: #{$w} / #{$h};
+  overflow: hidden;
+}
+
+// 정사각형
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+// 원형 (정사각형 + border-radius)
+@mixin circle($size) {
+  @include square($size);
+  border-radius: $radius-circle;
+}
+
+// ─────────────────────────────────────────────
+// 시각 효과
+// ─────────────────────────────────────────────
+
+// hover/focus 트랜지션 (투명도)
+@mixin hover-opacity($val: 0.75, $duration: 0.2s) {
+  transition: opacity $duration ease;
+
+  &:hover,
+  &:focus-visible {
+    opacity: $val;
+  }
+}
+
+// 포커스 링 (접근성)
+@mixin focus-ring($color: var(--color-primary), $offset: 2px) {
+  &:focus-visible {
+    outline: 2px solid $color;
+    outline-offset: $offset;
+  }
+}
+
+// 카드 hover 올라오는 효과
+@mixin lift($y: -0.4rem, $shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.12)) {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  &:hover,
+  &:focus-visible {
+    transform: translateY($y);
+    box-shadow: $shadow;
+  }
+}
+
+// 오버레이 그라디언트 (이미지 위 텍스트 가독성)
+// 사용: @include overlay-gradient(180deg, 0.6)
+@mixin overlay-gradient($deg: 180deg, $opacity: 0.5) {
+  &::after {
+    content: "";
+    @include abs-fill;
+    background: linear-gradient($deg, transparent 30%, rgba(0, 0, 0, $opacity) 100%);
+    pointer-events: none;
+  }
+}
+
+
+
+
+
+// ─────────────────────────────────────────────
+// 타이포그래피
+// ─────────────────────────────────────────────
+
+// 텍스트 언더라인 grow 애니메이션 (초기 상태)
+@mixin text-underline-grow($color: var(--color-text), $height: 1px, $duration: 0.6s) {
+    background-image: linear-gradient(to right, #{$color}, #{$color});
+    background-size: 0 $height;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: background-size $duration ease-in-out;
+}
+
+// 텍스트 언더라인 grow 활성 상태 (hover 블록 안에서 사용)
+@mixin text-underline-grow-active($height: 1px) {
+    background-size: 100% $height;
+}
+
+// 반응형 제목 축약
+// 사용: @include heading-fluid(3.2rem, 5.6rem)
+@mixin heading-fluid($min, $max) {
+  font-size: clamp($min, 4vw, $max);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+// ─────────────────────────────────────────────
+// 상태 (is-* 클래스 전용)
+// ─────────────────────────────────────────────
+
+// 숨김 → 보임 페이드 전환 (is-visible 토글)
+@mixin fade-toggle($duration: 0.3s) {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity $duration ease, visibility $duration ease;
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+// ─────────────────────────────────────────────
+// 뷰포트 & 스크롤
+// ─────────────────────────────────────────────
+
+@mixin viewport-height($value: 100) {
+  // 1. 기본 브라우저 대응 (Fallback)
+  height: #{$value}vh;
+
+  // 2. JS 커스텀 변수 대응 (모바일 주소창 해결용)
+  height: calc(var(--vh, 1vh) * #{$value});
+
+  // 3. 최신 브라우저 동적 뷰포트 대응
+  @supports (height: 100dvh) {
+    height: #{$value}dvh;
+  }
+}
+
+@mixin custom-scrollbar($width: 6px, $thumb-color: #898989, $track-color: #ececec) {
+  &::-webkit-scrollbar {
+      width: $width;
+      height: $width;
+  }
+  &::-webkit-scrollbar-thumb {
+      background-color: $thumb-color;
+      border-radius: 4px;
+  }
+  &::-webkit-scrollbar-track {
+      background-color: $track-color;
+  }
+
+  // 스크롤바 자리를 항상 확보하여 레이아웃 흔들림 방지
+  scrollbar-gutter: stable;
+  
+  // Firefox 대응 (표준 속성)
+  scrollbar-width: thin;
+  scrollbar-color: $thumb-color $track-color;
+}
+
+@mixin text-gradient($gradient-val) {
+  display:inline-block;
+  background: $gradient-val;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent; // fallback
+  vertical-align: top;
+}

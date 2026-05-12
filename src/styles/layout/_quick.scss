@@ -1,0 +1,57 @@
+@use "../abstracts" as *;
+
+
+
+.quick-menu {
+    position: fixed;
+    right: 2rem;
+    bottom: 3rem;
+    z-index: 100;
+    @include flex-c;
+    transition: all 0.3s ease; 
+    width: 6rem;
+    height: 6rem;
+    .btn-cs {
+        position: relative;
+        z-index: 2;
+    }
+    &-link {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        width: 6rem;
+        height: 6rem;
+        background:#b3b3b3;
+        border-radius: 6rem;
+        opacity: 0;
+    }
+    &-linkbox {
+        padding: 1.7rem 10rem 1.7rem 4rem;
+        gap: 4rem;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: $font-size-sm;
+            font-weight: $font-weight-bold;
+            color: color("white");
+            text-decoration: none;            
+            white-space: nowrap;
+            &:hover {
+                color: color("primary");
+            }
+        }
+    }
+ 
+    @include respond('lg') {
+        right: 4rem;
+        bottom: 5rem;
+    }
+}
+
+
+

@@ -1,0 +1,24 @@
+@use "abstracts";
+
+@use "base/reset";
+@use "base/ally";
+@use "base/fonts";
+@use "base/theme";
+@use "base/common";
+
+@use 'components/icon';
+@use 'components/button';
+@use 'components/form';
+@use 'components/card';
+@use 'components/modal';
+@use 'components/dashboard';
+@use 'components/transaction-item';
+
+
+@use 'layout/header';
+@use 'layout/footer';
+@use 'layout/quick';
+@use 'layout/nav';
+
+@use 'pages/transaction-history';
+

@@ -1,0 +1,30 @@
+
+@use 'functions' as fn;
+// Base Font
+$font-family-base : 'Paperlogy', sans-serif;
+// Font Weights
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+// Fluid Type Scale
+$font-size-xs:   fn.fluid(1.2, 1.4);
+$font-size-sm:   fn.fluid(1.4, 1.6);
+$font-size-md:   fn.fluid(1.6, 2.0);
+$font-size-lg:   fn.fluid(1.8, 2.2);
+$font-size-xl:   fn.fluid(2.0, 2.4);
+$font-size-2xl:  fn.fluid(2.8, 3.6);
+$font-size-3xl:  fn.fluid(3.0, 4.0);
+$font-size-hero: fn.fluid(3, 7);
+$font-size-desc: fn.fluid(1.4, 2.6);
+// Semantic (scale 참조)
+$font-body-lg    : $font-size-lg;
+$font-heading-sm : $font-size-md;
+$font-heading-md : $font-size-xl;
+$font-heading-lg : $font-size-3xl;
+$font-caption-lg : $font-size-md;
+// Line Height
+$line-height-tight: 1.2;
+$line-height-body: 1.5;
+$line-height-heading: 1.3;
+$tracking-tight: -0.02em;
+
